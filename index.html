@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PetroID — Rock Identification Assistant</title>
+  <meta name="description" content="Interactive geological rock description and classification assistant." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <button class="brand" id="brandButton" aria-label="PetroID home">
+      <span class="brand-mark">P</span>
+      <span><strong>PetroID</strong><small>Identification system</small></span>
+    </button>
+
+    <nav class="rock-nav" aria-label="Rock groups">
+      <button class="nav-item active" data-category="igneous"><span class="nav-icon">◒</span><span><strong>Igneous Rocks</strong><small>Streckeisen / QAPF</small></span></button>
+      <button class="nav-item" data-category="sedimentary"><span class="nav-icon">≋</span><span><strong>Sedimentary Rocks</strong><small>Wentworth scale</small></span></button>
+      <button class="nav-item" data-category="carbonate"><span class="nav-icon">◉</span><span><strong>Carbonate Rocks</strong><small>Dunham classification</small></span></button>
+      <button class="nav-item" data-category="pyroclastic"><span class="nav-icon">✦</span><span><strong>Pyroclastic Rocks</strong><small>Schmid classification</small></span></button>
+      <button class="nav-item" data-category="metamorphic"><span class="nav-icon">▤</span><span><strong>Metamorphic Rocks</strong><small>Structure & fabric</small></span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="history-button" id="historyButton"><span>◷</span> Sample history <b id="historyCount">0</b></button>
+      <div class="user-chip"><span>GS</span><div><strong>Geology Student</strong><small>Petrology Lab</small></div></div>
+    </div>
+  </aside>
+
+  <main class="main-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="eyebrow">IGNEOUS PETROLOGY</p>
+        <h1 id="pageTitle">Igneous Rock Identification</h1>
+      </div>
+      <div class="top-actions">
+        <label class="language-picker" for="languageSelect"><span>Language</span><select id="languageSelect" aria-label="Select language"><option value="id">Bahasa Indonesia</option><option value="en">English</option></select></label>
+        <button class="icon-button" id="resetButton" title="Reset observation">↻</button>
+        <button class="secondary-button" id="historyTopButton">◷ History</button>
+      </div>
+    </header>
+
+    <div class="workbench">
+      <section class="form-column">
+        <div class="sample-card">
+          <div class="section-heading"><div><span class="step">01</span><h2>Sample Information</h2></div></div>
+          <div class="field-grid two">
+            <label>Sample name<input id="sampleName" type="text" placeholder="e.g. IG-025" /></label>
+            <label>Location<input id="location" type="text" placeholder="Locality or coordinates" /></label>
+          </div>
+        </div>
+
+        <div id="parameterForm"></div>
+
+        <div class="run-bar">
+          <button class="text-button" id="generateButton">Generate description</button>
+          <button class="run-button" id="runButton">Run classification <span>→</span></button>
+        </div>
+      </section>
+
+      <aside class="inspector">
+        <div class="inspector-card">
+          <div class="classification-preview">
+            <p>CLASSIFICATION</p>
+            <div class="rock-orb"><span id="rockOrb">IG</span></div>
+            <h3 id="previewName">Awaiting observation</h3>
+            <span id="previewReference">Streckeisen (1976)</span>
+          </div>
+          <div class="preview-divider"></div>
+          <div class="observation-summary">
+            <div class="summary-title"><h3>Observation summary</h3><span id="completion">0%</span></div>
+            <div class="progress-track"><span id="progressBar"></span></div>
+            <div id="summaryList" class="summary-list"></div>
+          </div>
+        </div>
+
+        <button class="export-button" id="exportButton">⇩ Export to PDF</button>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="result-modal" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div id="resultContent"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
